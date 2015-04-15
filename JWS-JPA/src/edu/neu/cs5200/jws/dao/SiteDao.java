@@ -37,6 +37,7 @@ public class SiteDao {
 		em.getTransaction().begin();
 		em.persist(site);
 		em.getTransaction().commit();
+		em.close();
 		return findAllSites();
 	}
 	
@@ -63,10 +64,14 @@ public class SiteDao {
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	private List<Site> updateSite(Site site){
+	private List<Site> updateSite(@PathParam("id") int id, Site site){
 		em.getTransaction().begin();
+		
+		site.setId(id);
 		em.merge(site);
+		
 		em.getTransaction().commit();
+		em.close();
 		
 		return findAllSites();
 	}
@@ -75,11 +80,12 @@ public class SiteDao {
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Site> removeSite (Integer siteId){
+	public List<Site> removeSite (@PathParam("id") int siteId){
 		em.getTransaction().begin();
 		Site site = em.find(Site.class, siteId);
 		em.remove(site);
 		em.getTransaction().commit();
+		em.close();
 		return findAllSites();
 	}
 	
