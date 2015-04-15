@@ -13,7 +13,8 @@
 <f:view>
 <h1> Hello JSP</h1>
 <script>
-	$(function(){
+	$(function()
+			{
 		alert("Hello from JQuery");
 		var site = {
 				"id":3,
@@ -29,10 +30,48 @@
 			data : JSON.stringify(site),
 			success : function(response){
 				console.log("yahoo")
+			},
+			error : function(response){
+				console.log(response);
 			}
 			
-		})
+		})	
 	})
+	
+	function updateSite(id, site)
+	{
+		$.ajax({
+			url:"/jws-jpa/api/site/"+id ,
+			type : "put",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			data : JSON.stringify(site),
+			success : function(response){
+				console.log("yahoo")
+			},
+			error : function(response){
+				console.log(response);
+			}
+		});
+	}
+	
+	function removeSite(id)
+	{
+		$.ajax({
+			url:"/jws-jpa/api/site/"+id ,
+			type : "delete",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			data : JSON.stringify(site),
+			success : function(response){
+				console.log("yahoo")
+			},
+			error : function(response){
+				console.log(response);
+			}
+		});
+	}
+	
 </script>
 </f:view>
 </body>
