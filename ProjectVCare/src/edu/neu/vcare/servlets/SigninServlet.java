@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import edu.neu.vcare.bean.UserBean;
 import edu.neu.vcare.controller.UserController;
 import edu.neu.vcare.dao.StateDao;
-import edu.neu.vcare.dao.UserDao;
 import edu.neu.vcare.entity.State;
 
 /**
@@ -39,7 +38,6 @@ public class SigninServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("In Signing Servlet");
 	     UserBean user = new UserBean();
 	     user.setUserName(request.getParameter("un"));
 	     user.setPassword(request.getParameter("pw"));
@@ -48,14 +46,11 @@ public class SigninServlet extends HttpServlet {
 	     user.setCountry(Integer.parseInt(request.getParameter("country")));
 	     user.setState(Integer.parseInt(request.getParameter("state")));
 	     user.setEmailId(request.getParameter("em"));
-	     System.out.println(request.getParameter("country"));
-	     System.out.println(request.getParameter("state"));
-	     System.out.println("after User");
-	     UserDao userDao = new UserDao();
-		 user =  userDao.createUser(user);		    
+	     
+	     UserController uController = new UserController();
+		 user =  uController.createUser(user);		    
 	     if (user.isValid())
 	     {
-		      System.out.println("Adter Call");
 	          HttpSession session = request.getSession(true);	    
 	          session.setAttribute("currentSessionUser",user); 
 	          response.sendRedirect("home.jsp"); //logged-in page      		
@@ -69,32 +64,15 @@ public class SigninServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		System.out.println("In Do pOst..");
-		
 		String operation = request.getParameter("operation");
 		if (operation.equals("countryChange")){
-		
-		List<State> states = new ArrayList<State>();
-		int countryId = Integer.parseInt(request.getParameter("id"));
-		StateDao state= new StateDao();
-		states = state.fetchStateList(countryId);
-		for (State s : states)
-		{
-			System.out.println(s.getId());
-			System.out.println(s.getName());
-		}
-		System.out.println("Before sessin set");
-		
-		//HttpSession session = request.getSession(true);	    
-        //session.setAttribute("stateList",states); 
-		Gson gson = new Gson();
-		response.setContentType("application/json");
-        response.getWriter().print(gson.toJson(states));
-       //request.setAttribute("stateList", states);   
-        System.out.println("Before Redirect");
-       // response.sendRedirect("signin.jsp");
+			List<State> states = new ArrayList<State>();
+			int countryId = Integer.parseInt(request.getParameter("id"));
+			StateDao state= new StateDao();
+			states = state.fetchStateList(countryId);
+			Gson gson = new Gson();
+			response.setContentType("application/json");
+			response.getWriter().print(gson.toJson(states));
 		}
 		if (operation.equals("editUserProfile")){
 			HttpSession session = request.getSession(true);	    
@@ -108,19 +86,12 @@ public class SigninServlet extends HttpServlet {
 		    user.setCountry(Integer.parseInt(request.getParameter("country")));
 		    user.setState(Integer.parseInt(request.getParameter("state")));
 		    user.setEmailId(request.getParameter("em"));
-		    System.out.println(user.getUsername());
-		    System.out.println(user.getFirstName());
-		    System.out.println(user.getState());
-		    System.out.println(user.getId());
-		    System.out.println(user.getPassword());
-		    System.out.println(user.getEmailId());
 		    UserController controller = new UserController();
 		    user = controller.updateUserDetails(user);
 	        session.setAttribute("currentSessionUser",user); 
 	        response.sendRedirect("home.jsp"); //logged-in page
 		}
 		if(operation.equals("checkUserName")){
-			System.out.println("In Servlet to check userName availability");
 			String userName = (String)request.getParameter("uname");
 			UserController controller = new UserController();
 			Boolean isPresent = controller.fetchUserName(userName);
@@ -135,7 +106,6 @@ public class SigninServlet extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.print(msg);
 		}
-		
 	}
 
 }

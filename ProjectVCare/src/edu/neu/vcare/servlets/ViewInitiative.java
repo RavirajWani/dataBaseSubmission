@@ -28,8 +28,6 @@ public class ViewInitiative extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("In do Get...");
 		String id = (String)request.getParameter("id");
 		String content = (String)request.getParameter("content");
 		String title = (String)request.getParameter("title");
