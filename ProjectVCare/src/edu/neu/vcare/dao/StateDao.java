@@ -20,7 +20,6 @@ public class StateDao {
 		List<State> states = new ArrayList<State>();
 		em = factory.createEntityManager();
 		Query queryUserByUserName = em.createQuery(
-//			    "SELECT OBJECT(state) FROM State state WHERE state.countryId = :countryid"
 				"select state From State state where state.countryId = :countryid"
 			);
 		queryUserByUserName.setParameter("countryid", countryid);
@@ -28,11 +27,4 @@ public class StateDao {
 		return states;
 	}
 	
-	public static void main(String[] args) {
-		StateDao dao = new StateDao();
-		List<State> states = new ArrayList<State>();
-		Integer i = new Integer(1);
-		states = dao.fetchStateList(i);
-		System.out.println(states.size());	
-	}
 }

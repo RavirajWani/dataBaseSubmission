@@ -24,10 +24,4 @@ public class CountryDao {
 		return countires;
 	}
 	
-	public static void main(String[] args) {
-		CountryDao dao = new CountryDao();
-		List<Country> countries = new ArrayList<Country>();
-		countries = dao.fetchCountryList();
-		System.out.println(countries.size());		
-	}
 }
