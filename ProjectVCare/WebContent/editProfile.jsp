@@ -35,7 +35,7 @@
   
   $(document).ready(function(){
 		$("#country").change(function(){
-			alert("In change function of state. Country selected :" + $('#country').val())
+			//alert("In change function of state. Country selected :" + $('#country').val())
 			$.ajax({
 	            url: "sigin.do",
 	            type: 'POST',

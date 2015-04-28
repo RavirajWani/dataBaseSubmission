@@ -19,7 +19,7 @@
 
 $(document).ready(function(){
 	$("#country").change(function(){
-		alert("In change function of state. Country selected :" + $('#country').val())
+		//alert("In change function of state. Country selected :" + $('#country').val())
 		$.ajax({
             url: "sigin.do",
             type: 'POST',
@@ -57,8 +57,25 @@ function checkEmail(){
     }
 }
 
+
+function checkPassword()
+{
+	$("#unameMsg").css('display','none');
+	var pass = $("#password").val();
+  // at least one number, one lowercase and one uppercase letter
+  // at least six characters that are letters, numbers or the underscore
+  var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{6,}$/;
+  if (!re.test(pass)) {
+	    alert('Password must have at least one number, one lowercase and one uppercase letter and at least six charaters');
+	    $("#password").val('');
+	    $("#password").focus();
+	    //return false;
+	    }
+  //return re.test(pass);
+}
+
 function checkUname(){
-	alert("In check uname");
+	//alert("In check uname");
     var uname = $("#uname").val();
 
     $.ajax({
@@ -66,26 +83,13 @@ function checkUname(){
         type: 'POST',
         data: {operation : "checkUserName", uname : uname},
         success: function (data) {
-        	alert('In SUccess');
-        	if(data){
-        		alert('In true');
-        		$("#unameMsg").val('Username not available. Select another username.');
-        		$("#unameMsg").css('display','block');
-        	    $("#uname").val('');
-        	    $("#uname").focus();
-        		
-        	}else{
-        		alert('In else');
-        		$("#unameMsg").html('');
-        		$("#unameMsg").css('display','none');
-        	}
-
-            
+        	$("#unameMsg").html(data);
+        	$("#unameMsg").css('display','block');
+        	 $("#uname").focus();
         },
         error: function () {
         	$("#unameMsg").val('Username cannot be checked');
             alert('Cannot retrieve the data');  
-            //console.log('Cannot retrieve the data');
         }
     });   
     
@@ -117,9 +121,11 @@ function checkUname(){
 	
 	<form action="SigninServlet">
 		<div class="form-group">
-		<input type="text" name="un" placeholder="Enter Username" class="form-control" id="uname" onclick="checkUname()"/>
+		<input type="text" name="un" placeholder="Enter Username" class="form-control" id="uname" onchange="checkUname()"/>
 		</div>
-		<div class="form-group"> <input type="text" name="pw" placeholder="Enter Password" class="form-control"/> </div>
+		 <div id="unameMsg" style="display:none;">
+		</div>
+		<div class="form-group"> <input type="password" name="pw" placeholder="Enter Password" class="form-control" id="password" onblur="checkPassword()"/> </div>
 		<div class="form-group"> <input type="text" name="fn" placeholder="Enter First Name" class="form-control"/></div>
 		<div class="form-group"> <input type="text" name="ln" placeholder="Enter Last Name" class="form-control"/> </div>
 		<div class="form-group"> <input type="text" name="em" placeholder="Enter Email" class="form-control" id="email" onblur="checkEmail()"/></div>
@@ -141,8 +147,7 @@ function checkUname(){
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
 		 <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn-login btn" value="Sign up" ></div></div></div>
-		 <div id="unameMsg" style="display:none;">
-		</div>
+		
 	</form>
 	</div>
 	</div>

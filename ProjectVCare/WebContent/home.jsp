@@ -75,8 +75,6 @@ Welcome, <%=currentUser.getFirstName() + " "
 		List<Blogpost> userblogs = bdc.fetchUserBlog(currentUser.getId());
 		int userBlogCount = userblogs.size();
 		
-		//InitiativeController idc = new InitiativeController();
-		//List<Initiative> initiatives = idc.fetchAllBlog(currentUser.getId());
 		Parser p = new Parser();
 		WebInitiative[] initiatives = p.fetchWebInitiative(); 
 	%>
@@ -131,7 +129,6 @@ Welcome, <%=currentUser.getFirstName() + " "
   </ul>
 
 <div id="display-blog" style="height:550px;overflow:auto;">
-<h4>Previous Posts</h4>
  <%if (count== 0) { %>
 
     <p> No blogs to display </p>

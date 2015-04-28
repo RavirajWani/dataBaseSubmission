@@ -40,7 +40,7 @@
 				<div class="panel panel-login">
 					<div class="panel-body">
 						<div class="row">
-						<center> <img src="http://www.logomaker.com/logo-images/050aea97fe6778cb.gif"/></center>
+						<center> <img src="http://www.logomaker.com/logo-images/050aea97fe6778cb.gif"/> </center>
 							<div class="col-lg-12">
 							
 								<form id="login-form" action="LoginServlet" method="get" role="form" style="display: block;">

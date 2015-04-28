@@ -143,9 +143,13 @@ Welcome, <%=currentUser.getFirstName() + " "
 <fieldset>
 <legend>Content<span id="deleteSpan" style="float:right"><input type="button" id="deleteBlog" value="Delete Blog" onclick="deleteBlogContent()" class="form-control btn-login btn" style="background:#59B2E0;color:white;width:200px;display:block;float:right;"></span></legend>
 <span id = "blogContent"><%= session.getAttribute("content")%></span> 
-<%} %>
 </fieldset>
 </h3>
+<%}else{ %>
+<h3><legend>Content<span id="deleteSpan" style="float:right"></span></legend></h3>
+<h3><span id = "blogContent"><%= session.getAttribute("content")%></span> </h3><br>
+<%} %>
+
 <a id="favouriteLink" value="LIKE" href="#" onclick="likeBlog()">Likes : </a>
 <span id="favouriteVal" ><%= session.getAttribute("like")%></span>
 <br>
