@@ -1,5 +1,6 @@
 package edu.neu.vcare.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.neu.vcare.bean.UserBean;
@@ -25,9 +26,7 @@ public class UserController {
 	}
 	
 	public UserBean updateUserDetails(UserBean user){
-		
 		UserDao uDao = new UserDao();
-		
 		User userInfo = new User();
 		userInfo.setCountryid(user.getCountry());
 		userInfo.setFirstName(user.getFirstName());
@@ -62,4 +61,38 @@ public class UserController {
 		
 	}
 	
+	public UserBean validateUser(UserBean user){
+		UserDao dao = new UserDao();
+		List<User> users = new ArrayList<User>();
+		UserBean bean = new UserBean();
+		bean.setValid(false);
+		users = dao.fetchUserDetails(user.getUsername());
+		for(User u : users){
+			if(user.getUsername().equals(u.getUsername()))
+			{	
+				if (user.getPassword().equals(u.getPassword())){
+				bean.setId(u.getId());
+				bean.setFirstName(u.getFirstName());
+				bean.setLastName(u.getLastName());
+				bean.setPassword(u.getPassword());
+				bean.setValid(true);
+				}
+			}
+		}
+		return bean;
+	}
+	
+	public UserBean createUser(UserBean userInfo){
+		UserDao dao = new UserDao();
+		User user = new User();
+		user.setFirstName(userInfo.getFirstName());
+		user.setLastName(userInfo.getLastName());
+		user.setUsername(userInfo.getUsername());
+		user.setPassword(userInfo.getPassword());	
+		user.setCountryid(userInfo.getCountry());
+		user.setStateid(userInfo.getState());
+		user.setEmailId(userInfo.getEmailId());		
+		dao.createUser(user);
+		return validateUser(userInfo);			
+	}
 }

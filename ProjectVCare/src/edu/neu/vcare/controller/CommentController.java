@@ -21,7 +21,6 @@ public class CommentController {
 		for(Comment bean : blogComments)
 		{
 			CommentBean comment = new CommentBean();
-			System.out.println("Comment Id in Comment Controller : " + bean.getId());
 			comment.setId(bean.getId());
 			comment.setBlogId(bean.getBlogId());
 			comment.setContent(bean.getContent());
@@ -36,18 +35,8 @@ public class CommentController {
 	private String fetchUserName(int userId){
 		UserDao uDao = new UserDao();
 		User user = uDao.fetchUserById(userId);
-		System.out.println(user.getFirstName());
-		System.out.println(user.getLastName());
-		System.out.println(user.getId());
-		System.out.println(user.getUsername());
-		
 		return (user.getFirstName() + user.getLastName());
 		//return "hi";
-	}
-	
-	public static void main(String[] args) {
-		CommentController con = new CommentController();
-		System.out.println(con.fetchUserName(1));
 	}
 	
 	public List<CommentBean> createComment(CommentBean comment){
@@ -86,7 +75,6 @@ public class CommentController {
 		for(Comment bean : blogComments)
 		{
 			CommentBean commBean = new CommentBean();
-			System.out.println("Comment Id in Comment Controller : " + bean.getId());
 			commBean.setId(bean.getId());
 			commBean.setBlogId(bean.getBlogId());
 			commBean.setContent(bean.getContent());

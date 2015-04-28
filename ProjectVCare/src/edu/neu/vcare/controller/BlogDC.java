@@ -1,6 +1,7 @@
 package edu.neu.vcare.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import edu.neu.vcare.bean.BlogBean;
@@ -9,7 +10,32 @@ import edu.neu.vcare.entity.Blogpost;
 
 public class BlogDC {
 	
-	
+	public List<BlogBean> createBlogPost(BlogBean blog)
+	{
+		BlogDao bDao = new BlogDao();
+		
+		Blogpost blogpost = new Blogpost();
+		blogpost.setContent(blog.getContent());
+		blogpost.setTitle(blog.getTitle());
+		blogpost.setDate(new Date());
+		blogpost.setUserId(blog.getUserId());
+		
+		bDao.createblog(blogpost);
+		
+		List<BlogBean> blogbeans = new ArrayList<BlogBean>();
+		List<Blogpost> blogs = new ArrayList<Blogpost>();
+		blogs = bDao.fetchBlogDetails(blog.getUserId());
+		for(Blogpost b : blogs){
+				BlogBean b2 = new BlogBean();
+				b2.setId(b.getId());
+				b2.setTitle(b.getTitle());
+				b2.setUserId(b.getUserId());
+				b2.setDatePosted(b.getDate());
+				b2.setContent(b.getContent());
+				blogbeans.add(b2);
+		}
+		return blogbeans;		
+	}
 	
 	public List<Blogpost> fetchAllBlog(int userId){
 		BlogDao bDao = new BlogDao();
