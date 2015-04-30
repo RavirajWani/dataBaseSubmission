@@ -138,7 +138,7 @@ Welcome, <%=currentUser.getFirstName() + " "
 <div id="<%= session.getAttribute("id")%>" class="Blog">
 <H1><%= session.getAttribute("title")%></H1>
 <h6>Posted on: <%= session.getAttribute("date")%></h6>
-<%if (user.equals(session.getAttribute("userId").toString())) {%>
+<%if (user.equals(session.getAttribute("userId").toString()) || (currentUser.getRole() == 1)) {%>
 <h3>
 <fieldset>
 <legend>Content<span id="deleteSpan" style="float:right"><input type="button" id="deleteBlog" value="Delete Blog" onclick="deleteBlogContent()" class="form-control btn-login btn" style="background:#59B2E0;color:white;width:200px;display:block;float:right;"></span></legend>

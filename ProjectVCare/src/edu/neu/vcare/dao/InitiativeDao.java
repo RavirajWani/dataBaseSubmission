@@ -18,8 +18,8 @@ public class InitiativeDao {
 	EntityManager em = null;
 	
 	
-	@SuppressWarnings("unused")
-	private void createInitiatve(Initiative initative){
+	
+	public void createInitiatve(Initiative initative){
 	    em = factory.createEntityManager();
 		em.getTransaction().begin();
 		System.out.println("before persist");
@@ -30,7 +30,7 @@ public class InitiativeDao {
     }
 	
 	@SuppressWarnings("unchecked")
-	private List<Initiative> fetchInitativeDetails(int userId){
+	public List<Initiative> fetchInitativeDetails(int userId){
 		em = factory.createEntityManager();
 		Query queryUserByUserName = em.createQuery(
 			    "SELECT OBJECT(initiative) FROM Initiative initiative WHERE initiative.userId = :userId"
@@ -40,6 +40,7 @@ public class InitiativeDao {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public List<Initiative> fetchAllInitiative(){
 		List<Initiative> initatives = new ArrayList<Initiative>();
 		em = factory.createEntityManager();

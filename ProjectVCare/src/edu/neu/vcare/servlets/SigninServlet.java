@@ -107,5 +107,19 @@ public class SigninServlet extends HttpServlet {
 			out.print(msg);
 		}
 	}
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+		    throws ServletException, IOException {
+		String userid = request.getParameter("id");
+		int index = userid.indexOf("r");
+		String id = userid.substring(index+1);
+		int uId = (Integer.parseInt(id));
+		UserController controller = new UserController();
+		List<UserBean> users = new ArrayList<UserBean>();
+		users = controller.deleteUser(uId);
+		Gson gson = new Gson();
+		response.setContentType("application/json");
+        response.getWriter().print(gson.toJson(users));
+	}
 
 }

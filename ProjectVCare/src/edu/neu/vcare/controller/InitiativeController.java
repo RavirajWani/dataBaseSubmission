@@ -13,13 +13,6 @@ public class InitiativeController {
 		InitiativeDao iDao = new InitiativeDao();
 		List<Initiative> initiatives = new ArrayList<Initiative>();
 		initiatives = iDao.fetchAllInitiative();
-		/*List<Initiative> usersInitiatives = new ArrayList<Initiative>();
-		for(Initiative i : initiatives){
-			if(i.getUserId() == userId){
-				usersInitiatives.add(i);
-			}
-		}
-		initiatives.removeAll(usersInitiatives);*/
 		return initiatives;
 	}
 	

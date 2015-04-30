@@ -11,7 +11,21 @@ public class UserBean {
     private int state;
 	public boolean valid;
 	private String emailId;
+	private int role;
+	private int blogCount;
 	
+	public int getBlogCount() {
+		return blogCount;
+	}
+	public void setBlogCount(int blogCount) {
+		this.blogCount = blogCount;
+	}
+	public int getRole() {
+		return role;
+	}
+	public void setRole(int role) {
+		this.role = role;
+	}
     public String getEmailId() {
 		return emailId;
 	}

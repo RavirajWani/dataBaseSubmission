@@ -22,6 +22,7 @@ public class UserController {
 		user.setPassword(userInfo.getPassword());
 		user.setId(userInfo.getId());
 		user.setEmailId(userInfo.getEmailId());
+		user.setRole(userInfo.getRole());
 		return user;
 	}
 	
@@ -36,6 +37,7 @@ public class UserController {
 		userInfo.setStateid(user.getState());
 		userInfo.setUsername(user.getUsername());
 		userInfo.setEmailId(user.getEmailId());
+		userInfo.setRole(user.getRole());
 		User updatedUser = uDao.updateUser(userInfo);
 		UserBean userBean = new UserBean();
 		userBean.setFirstName(updatedUser.getFirstName());
@@ -45,6 +47,7 @@ public class UserController {
 		userBean.setUsername(updatedUser.getUsername());
 		userBean.setPassword(updatedUser.getPassword());
 		userBean.setId(updatedUser.getId());
+		userBean.setRole(updatedUser.getRole());
 		return userBean;
 	}
 	
@@ -76,6 +79,7 @@ public class UserController {
 				bean.setLastName(u.getLastName());
 				bean.setPassword(u.getPassword());
 				bean.setValid(true);
+				bean.setRole(u.getRole());
 				}
 			}
 		}
@@ -92,7 +96,38 @@ public class UserController {
 		user.setCountryid(userInfo.getCountry());
 		user.setStateid(userInfo.getState());
 		user.setEmailId(userInfo.getEmailId());		
+		user.setRole(2);
 		dao.createUser(user);
 		return validateUser(userInfo);			
 	}
+	
+	public List<UserBean> fetchAllUser(){
+		UserDao dao = new UserDao();
+		List<User> userList = new ArrayList<User>();
+		userList = dao.fetchAllUser();
+		List<UserBean> users = new ArrayList<UserBean>();
+		for(User u : userList){
+			UserBean bean = new UserBean();
+			bean.setCountry(u.getCountryid());
+			bean.setEmailId(u.getEmailId());
+			bean.setFirstName(u.getFirstName());
+			bean.setId(u.getId());
+			bean.setLastName(u.getLastName());
+			bean.setPassword(u.getPassword());
+			bean.setRole(u.getRole());
+			bean.setBlogCount(dao.fetchUserBlogCount(u.getId()));
+			bean.setState(u.getStateid());
+			bean.setUsername(u.getUsername());
+			users.add(bean);
+		}
+		return users;
+	}
+	
+	public List<UserBean> deleteUser(int userId){
+		UserDao dao = new UserDao();
+		dao.deleteUser(userId);
+		return fetchAllUser(); 
+	}
+	
+	
 }

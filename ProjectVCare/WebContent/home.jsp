@@ -60,7 +60,11 @@ Welcome, <%=currentUser.getFirstName() + " "
 <span id="editDiv" style="font-size: 1.5em;">
 <a href="editProfile.jsp">  | Edit Profile</a>
 </span>
-
+<%if (currentUser.getRole() == 1) { %>
+<span id="userDiv" style="font-size: 1.5em;">
+<a href="editUser.jsp">  | Edit User</a>
+</span>
+<%} %>
 <span id="logoutDiv" style="float:right;font-size: 1.5em;">
 <a href="logout.jsp">Logout</a>
 </span>

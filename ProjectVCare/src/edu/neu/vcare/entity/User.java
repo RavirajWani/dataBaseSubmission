@@ -14,7 +14,14 @@ public class User {
     private int countryid;
     private int stateid;
     private String emailId;
+    private int role;
     
+	public int getRole() {
+		return role;
+	}
+	public void setRole(int role) {
+		this.role = role;
+	}
 	public String getEmailId() {
 		return emailId;
 	}
